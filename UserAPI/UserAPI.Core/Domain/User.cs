@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserAPI.Core.Domain
 {
-    class User
+    public class User
     {
         public int Id { get; protected set; }
         public int PhoneNumber { get; protected set; } // for a while be a string 
