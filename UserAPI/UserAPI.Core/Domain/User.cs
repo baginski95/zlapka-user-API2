@@ -36,6 +36,10 @@ namespace UserAPI.Core.Domain
             FirstName = SetData(firstName);
             SecondName = SetData(secondName);
             Email = SetData(email);
+            UserEvents = new List<EventHeader>();
+            Role = "Regular";
+            PhotoDir = "";
+            Description = "";
         }
 
         public string SetData(string dataToCheck)
