@@ -29,8 +29,6 @@ namespace UserAPI.Core.Domain
             Name = name;
             Time = time;
             PublicEvent = publicEvent;
-
-
         }
 
     }

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace UserAPI.Core.Domain
 {
-    class Entity
+    public abstract class Entity
     {
+
     }
 }

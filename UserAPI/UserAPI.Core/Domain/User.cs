@@ -7,7 +7,7 @@ namespace UserAPI.Core.Domain
     public class User
     {
         public int Id { get; protected set; }
-        public int PhoneNumber { get; protected set; } // for a while be a string 
+        public int PhoneNumber { get; protected set; } 
         public int Score { get; protected set; }
         public DateTime DateOfBirth { get; protected set; }
         public string UserName { get; protected set; }
@@ -21,7 +21,7 @@ namespace UserAPI.Core.Domain
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
 
-        private User()
+        public User()
         {
 
         }
