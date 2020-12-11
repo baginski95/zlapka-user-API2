@@ -21,7 +21,7 @@ namespace UserAPI.Core.Domain
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
 
-        public User()
+        private User()
         {
 
         }
