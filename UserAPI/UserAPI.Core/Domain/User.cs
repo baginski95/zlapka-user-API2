@@ -20,5 +20,33 @@ namespace UserAPI.Core.Domain
         public IEnumerable<EventHeader> UserEvents { get; set; }
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
+
+        public User()
+        {
+
+        }
+
+        public User(int id, int phoneNumber, DateTime dateOfBirth, string username, string firstName,
+                    string secondName, string email)
+        {
+            Id = id;
+            PhoneNumber = phoneNumber;
+            DateOfBirth = dateOfBirth;
+            UserName = SetData(username);
+            FirstName = SetData(firstName);
+            SecondName = SetData(secondName);
+            Email = SetData(email);
+        }
+
+        public string SetData(string dataToCheck)
+        {
+            if(string.IsNullOrWhiteSpace(dataToCheck))
+            {
+                throw new Exception($"User with id {Id} doesn't set needed values to exist in our world");
+            }
+
+            return dataToCheck;
+
+        }
     }
 }
