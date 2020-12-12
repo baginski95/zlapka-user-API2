@@ -14,7 +14,5 @@ namespace UserAPI.Core.Repositories
         IEnumerable<User> GetEventUsers(int eventId);
         IEnumerable<EventHeader> GetUserEvents(User user);
 
-
-
     }
 }

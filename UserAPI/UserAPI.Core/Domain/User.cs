@@ -50,7 +50,6 @@ namespace UserAPI.Core.Domain
             }
 
             return dataToCheck;
-
         }
     }
 }
