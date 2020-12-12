@@ -66,7 +66,7 @@ namespace UserAPI.Infrastructure.Repositories
 
         public IEnumerable<EventHeader> GetUserEvents(User user)
         {
-            throw new NotImplementedException();
+            return user.UserEvents;
         }
 
     }
