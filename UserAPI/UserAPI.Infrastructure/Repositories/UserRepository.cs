@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UserAPI.Core.Domain;
 using UserAPI.Core.Repositories;
@@ -29,25 +30,38 @@ namespace UserAPI.Infrastructure.Repositories
         };
         public User Get(int id)
         {
-            throw new NotImplementedException();
+            return _users.SingleOrDefault(x => x.Id == id);
         }
         public User Add(User user)
         {
-            throw new NotImplementedException();
+            _users.Add(user);
+            return user;
         }
         public void Update(User user)
         {
-            throw new NotImplementedException();
+           
         }
 
         public void Delete(User user)
         {
-            throw new NotImplementedException();
+            _users.Remove(user);
+
         }
 
         public IEnumerable<User> GetEventUsers(int eventId)
         {
-            throw new NotImplementedException();
+            var eventUsers = new List<User>();
+            foreach(User user in _users)
+            {
+                var hasThisEvent = user.UserEvents.FirstOrDefault(x => x.Id == eventId);
+
+                if (hasThisEvent != null)
+                {
+                    eventUsers.Add(user);
+                }
+            }
+
+            return eventUsers;
         }
 
         public IEnumerable<EventHeader> GetUserEvents(User user)
