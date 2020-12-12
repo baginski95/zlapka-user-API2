@@ -17,7 +17,7 @@ namespace UserAPI.Core.Domain
         public string Email { get; protected set; }
         public string PhotoDir { get; protected set; }
         public string Role { get; protected set; }
-        public IEnumerable<EventHeader> UserEvents { get; set; }
+        public IEnumerable<EventHeader> UserEvents { get; protected set; }
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
 
@@ -30,6 +30,7 @@ namespace UserAPI.Core.Domain
                     string secondName, string email)
         {
             Id = id;
+            Score = 0;
             PhoneNumber = phoneNumber;
             DateOfBirth = dateOfBirth;
             UserName = SetData(username);
