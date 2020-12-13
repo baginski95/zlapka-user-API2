@@ -12,7 +12,5 @@ namespace UserAPI.Core.Domain
        {
             Id = Guid.NewGuid();
        }
-
-
     }
 }

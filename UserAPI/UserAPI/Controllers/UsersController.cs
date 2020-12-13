@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserAPI.Infrastructure.DTO;
 using UserAPI.Infrastructure.Services;
 
 namespace UserAPI.Controllers
 {
-    [Route("UserApi/[controller]")]
+    [Route("UserAPI/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -18,7 +19,7 @@ namespace UserAPI.Controllers
             _userService = userService;
         }
         [HttpGet("id")]
-        public IActionResult Get(int id)
+        public IActionResult GetUser(Guid id)
         {
             var user = _userService.Get(id);
             if(user == null)
@@ -27,6 +28,29 @@ namespace UserAPI.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] UserDtoCreate user)
+        {
+            var newId = Guid.NewGuid();
+            user = _userService.Create(newId, user.PhoneNumber, user.DateOfBirth, user.UserName,
+                                       user.FirstName, user.SecondName, user.Email);
+            return Created($"UserAPI/users/{newId}", user);
+        }
+
+        [HttpPut("id")]
+        public IActionResult UpdateUser(Guid id, [FromBody] UserDtoUpdate user)
+        {
+            _userService.Update(id, user.Email, user.PhotoDir, user.Description);
+            return NoContent();
+        }
+
+        [HttpDelete("id")]
+        public IActionResult DeleteUser(Guid id)
+        {
+            _userService.Delete(id);
+            return NoContent();
         }
     }
 }

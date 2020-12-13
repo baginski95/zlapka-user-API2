@@ -9,7 +9,7 @@ namespace UserAPI.Infrastructure.Services
     public interface IUserService
     {
         UserDto Get(Guid id);
-        UserDto Create(Guid id, int phoneNumber, DateTime dateOfBirth, string userName,
+        UserDtoCreate Create(Guid id, string phoneNumber, string dateOfBirth, string userName,
                         string firstName, string secondName, string email);
         void Update(Guid id, string email, string photoDir, string description);
         void Delete(Guid id);
