@@ -13,6 +13,7 @@ namespace UserAPI.Infrastructure.Mappers
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
-            }).CreateMapper();
+            }
+            ).CreateMapper();
     }
 }

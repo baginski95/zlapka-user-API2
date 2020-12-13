@@ -12,7 +12,17 @@ namespace UserAPI.Infrastructure.DTO
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Role { get; set; }
-       // public IEnumerable<EventHeaderDto> UserEvents { get; set; }
+        // public IEnumerable<EventHeaderDto> UserEvents { get; set; }
+        //        public UserDto()
+        //{
+
+        //}
+
+        //public UserDto(string userName, string firstName, string SecondName)
+        //{
+        //    Role = "Regular";
+        //    Score = "0";
+        //}
 
 
     }

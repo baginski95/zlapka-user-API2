@@ -11,6 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserAPI.Core.Repositories;
+using UserAPI.Infrastructure.Repositories;
+using UserAPI.Infrastructure.Services;
+using UserAPI.Infrastructure.Mappers;
 
 namespace UserAPI
 {
@@ -26,6 +30,9 @@ namespace UserAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

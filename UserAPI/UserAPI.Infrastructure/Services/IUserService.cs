@@ -6,12 +6,13 @@ using UserAPI.Infrastructure.DTO;
 
 namespace UserAPI.Infrastructure.Services
 {
-    interface IUserService
+    public interface IUserService
     {
-        UserDto Get(int id);
-        User Add(UserDto user);
-        void Update(UserDto user);
-        void Delete(UserDto user);
+        UserDto Get(Guid id);
+        UserDto Create(Guid id, int phoneNumber, DateTime dateOfBirth, string userName,
+                        string firstName, string secondName, string email);
+        void Update(Guid id, string email, string photoDir, string description);
+        void Delete(Guid id);
         IEnumerable<UserDto> GetEventUsers(int eventId);
         IEnumerable<EventHeader> GetUserEvents(UserDto user);
     }

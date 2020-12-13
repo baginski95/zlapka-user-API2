@@ -4,18 +4,17 @@ using System.Text;
 
 namespace UserAPI.Core.Domain
 {
-    public class User
+    public class User : Entity
     {
-        public int Id { get; protected set; }
         public int PhoneNumber { get; protected set; } 
         public int Score { get; protected set; }
         public DateTime DateOfBirth { get; protected set; }
         public string UserName { get; protected set; }
         public string FirstName { get; protected set; }
         public string SecondName { get; protected set; }
-        public string Description { get; protected set; }
-        public string Email { get; protected set; }
-        public string PhotoDir { get; protected set; }
+        public string Description { get; set; }
+        public string Email { get; set; }
+        public string PhotoDir { get; set; }
         public string Role { get; protected set; }
         public IEnumerable<EventHeader> UserEvents { get; protected set; }
 
@@ -26,7 +25,7 @@ namespace UserAPI.Core.Domain
 
         }
 
-        public User(int id, int phoneNumber, DateTime dateOfBirth, string username, string firstName,
+        public User(Guid id, int phoneNumber, DateTime dateOfBirth, string username, string firstName,
                     string secondName, string email)
         {
             Id = id;

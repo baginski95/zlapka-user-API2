@@ -6,9 +6,9 @@ namespace UserAPI.Infrastructure.DTO
 {
     public class EventHeaderDto
     {
-        public bool PublicEvent { get; set; }
-        public int Id { get; set; }
-        public DateTime Time { get; set; }
+        public string PublicEvent { get; set; }
+        public string Id { get; set; }
+        public string Time { get; set; }
         public string Name { get; set; }
 
     }
