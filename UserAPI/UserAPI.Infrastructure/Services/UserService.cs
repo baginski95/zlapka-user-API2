@@ -16,7 +16,6 @@ namespace UserAPI.Infrastructure.Services
         public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
-            Console.WriteLine($"{_userRepository.GetAll().FirstOrDefault().Id}");
             _mapper = mapper;
         }
         public UserDto Get(Guid id)
@@ -26,13 +25,13 @@ namespace UserAPI.Infrastructure.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public UserDto Create(Guid id, string phoneNumber, string dateOfBirth, string userName,
+        public UserDtoCreate Create(Guid id, string phoneNumber, string dateOfBirth, string userName,
                                 string firstName,string secondName, string email)
         {
             var compare = _userRepository.GetAll().FirstOrDefault(c => c.UserName == userName ||
                                                  c.PhoneNumber == int.Parse(phoneNumber) ||
                                                  c.Email == email);
-            if (compare == null)
+            if (compare != null)
             {
                 throw new NotImplementedException();
             }
@@ -44,7 +43,7 @@ namespace UserAPI.Infrastructure.Services
                                 userName,firstName, secondName, email);
 
             _userRepository.Create(user);
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<UserDtoCreate>(user);
         }
         public void Update(Guid id, string email, string photoDir, string description)
         {
