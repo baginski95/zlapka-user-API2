@@ -33,6 +33,12 @@ namespace UserAPI
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
+            services.AddHttpClient();
+/*                ("event", x =>
+            {
+                x.BaseAddress = new Uri("https://randomfox.ca/");
+                x.DefaultRequestHeaders.Add("Accept", "application/json");
+            });*/
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

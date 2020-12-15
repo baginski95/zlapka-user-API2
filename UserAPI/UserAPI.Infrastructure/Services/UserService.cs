@@ -24,6 +24,11 @@ namespace UserAPI.Infrastructure.Services
 
             return _mapper.Map<UserDto>(user);
         }
+        public User GetAllInfo(Guid id)
+        {
+            var user = _userRepository.Get(id);
+            return user;
+        }
 
         public UserDtoCreate Create(Guid id, string phoneNumber, string dateOfBirth, string userName,
                                 string firstName,string secondName, string email)
@@ -36,10 +41,10 @@ namespace UserAPI.Infrastructure.Services
                 throw new NotImplementedException();
             }
 
-            var convertedPhoneNumber = int.Parse(phoneNumber);
-            var convertedDateOfBirth = DateTime.Parse(dateOfBirth);
-
-            User user = new User(id, convertedPhoneNumber,convertedDateOfBirth,
+           var convertedPhoneNumber = int.Parse(phoneNumber);
+           var mappedDate = dateOfBirth + "12:00:00 AM";
+           var convertedDateOfBirth = DateTime.Parse(dateOfBirth);
+           User user = new User(id, convertedPhoneNumber,convertedDateOfBirth,
                                 userName,firstName, secondName, email);
 
             _userRepository.Create(user);
@@ -59,16 +64,31 @@ namespace UserAPI.Infrastructure.Services
             var user = _userRepository.Get(id);
             _userRepository.Delete(user);
         }
-
-        public IEnumerable<UserDto> GetEventUsers(int eventId)
+        public EventHeaderDto GetEvent(Guid id, Guid eventId)
         {
-            throw new NotImplementedException();
+            var userEvent = _userRepository.GetEvent(id, eventId);
+            return _mapper.Map<EventHeaderDto>(userEvent);
+        }
+        public EventHeaderDto AddEvent(Guid id,Guid eventId, string name = "defaultName")
+        {
+
+            var userEvent = new EventHeader(eventId, name);
+            _userRepository.AddEvent(id, userEvent);
+
+            return _mapper.Map<EventHeaderDto>(userEvent);
         }
 
-        public IEnumerable<EventHeader> GetUserEvents(UserDto user)
+        public void UpdateEvent(Guid id, Guid eventId, string name = "defaultName")
         {
-            throw new NotImplementedException();
+             var userEvent = _userRepository.GetEvent(id, eventId);
+             userEvent.Name = name;
+            _userRepository.UpdateEvent(id, userEvent);
         }
 
+
+        public void DeleteEvent(Guid id, Guid eventId)
+        {
+            _userRepository.DeleteEvent(id, eventId);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace UserAPI.Core.Domain
         public string Email { get; set; }
         public string PhotoDir { get; set; }
         public string Role { get; protected set; }
-        public IEnumerable<EventHeader> UserEvents { get; protected set; }
+        public List<EventHeader> UserEvents { get; set; }
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
 

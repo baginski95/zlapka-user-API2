@@ -45,14 +45,36 @@ namespace UserAPI.Infrastructure.Repositories
         {
            
         }
-
         public void Delete(User user)
         {
             _users.Remove(user);
 
         }
+        public EventHeader GetEvent(Guid id, Guid EventId)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            return user.UserEvents.SingleOrDefault(x => x.Id == EventId);
+        }
+        public EventHeader AddEvent(Guid id, EventHeader userEvent)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            user.UserEvents.Add(userEvent);
+            return userEvent;
+        }
 
-        public IEnumerable<User> GetEventUsers(int eventId)
+        public void UpdateEvent(Guid id, EventHeader userEvent)
+        {
+ 
+        }
+
+        public void DeleteEvent(Guid id, Guid eventId)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            var eventInRepo = user.UserEvents.SingleOrDefault(x => x.Id == eventId);
+            if (eventInRepo != null) user.UserEvents.Remove(eventInRepo);
+        }
+
+        public IEnumerable<User> GetEventUsers(Guid eventId)
         {
             var eventUsers = new List<User>();
             foreach(User user in _users)
