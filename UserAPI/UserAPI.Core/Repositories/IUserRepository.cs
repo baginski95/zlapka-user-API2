@@ -16,7 +16,5 @@ namespace UserAPI.Core.Repositories
         EventHeader AddEvent(Guid id, EventHeader userEvent);
         void UpdateEvent(Guid id, EventHeader userEvent);
         void DeleteEvent(Guid id, Guid eventId);
-        IEnumerable<User> GetEventUsers(Guid eventId);
-        IEnumerable<EventHeader> GetUserEvents(User user);
     }
 }

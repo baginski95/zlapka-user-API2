@@ -73,27 +73,5 @@ namespace UserAPI.Infrastructure.Repositories
             var eventInRepo = user.UserEvents.SingleOrDefault(x => x.Id == eventId);
             if (eventInRepo != null) user.UserEvents.Remove(eventInRepo);
         }
-
-        public IEnumerable<User> GetEventUsers(Guid eventId)
-        {
-            var eventUsers = new List<User>();
-            foreach(User user in _users)
-            {
-                var hasThisEvent = user.UserEvents.FirstOrDefault(x => x.Id == eventId);
-
-                if (hasThisEvent != null)
-                {
-                    eventUsers.Add(user);
-                }
-            }
-
-            return eventUsers;
-        }
-
-        public IEnumerable<EventHeader> GetUserEvents(User user)
-        {
-            return user.UserEvents;
-        }
-
     }
 }
