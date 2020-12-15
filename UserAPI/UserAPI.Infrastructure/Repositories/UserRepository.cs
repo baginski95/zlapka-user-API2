@@ -11,7 +11,7 @@ namespace UserAPI.Infrastructure.Repositories
     {
         private static readonly ISet<User> _users = new HashSet<User>()
         {
-                new User( Guid.NewGuid(), 567834123, DateTime.Now, "Bagiczny", "Filip",
+                new User( new Guid("3d280c89-0825-4196-b11a-d13131ce107f"), 567834123, DateTime.Now, "Bagiczny", "Filip",
                             "Bagins", "bag@gmail.com"),
                 new User( Guid.NewGuid(), 163434153, DateTime.Now, "Magiczny", "Szymon",
                             "Tarnacki", "Tar.S@gmail.com"),
