@@ -96,27 +96,33 @@ namespace UserAPI.Controllers
         [HttpPut("id/events/update")]
         public IActionResult UpdateEvent(Guid id, [FromBody] EventHeaderDto userEvent)
         {
-            Guid eventId = Guid.Parse(userEvent.Id);
-            var eventCheck = _userService.GetEvent(id, eventId);
-            if (eventCheck == null)
+            if (Guid.TryParse(userEvent.Id, out var eventId))
             {
-                return NotFound();
+                var eventCheck = _userService.GetEvent(id, eventId);
+                if (eventCheck == null)
+                {
+                    return NotFound();
+                }
+                _userService.UpdateEvent(id, eventId, userEvent.Name);
+                return Ok();
             }
-            _userService.UpdateEvent(id, eventId, userEvent.Name);
-            return Ok();
+            return NotFound();
         }
 
         [HttpDelete("id/events/delete")]
         public IActionResult DeleteEvent(Guid id, [FromBody] EventHeaderDto userEvent)
         {
-            Guid eventId = Guid.Parse(userEvent.Id);
-            var eventCheck = _userService.GetEvent(id, eventId);
-            if (eventCheck == null)
+            if( Guid.TryParse(userEvent.Id, out var eventId))
             {
-                return NotFound();
+                var eventCheck = _userService.GetEvent(id, eventId);
+                if (eventCheck == null)
+                {
+                    return NotFound();
+                }
+                _userService.DeleteEvent(id, eventId);
+                return Ok();
             }
-            _userService.DeleteEvent(id, eventId);
-            return Ok();
+            return NotFound();
         }
 
         [HttpGet]
