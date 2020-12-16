@@ -50,10 +50,10 @@ namespace UserAPI.Infrastructure.Repositories
             _users.Remove(user);
 
         }
-        public EventHeader GetEvent(Guid id, Guid EventId)
+        public EventHeader GetEvent(Guid id, Guid eventId)
         {
             var user = _users.SingleOrDefault(x => x.Id == id);
-            return user.UserEvents.SingleOrDefault(x => x.Id == EventId);
+            return user.UserEvents.SingleOrDefault(x => x.Id == eventId);
         }
         public EventHeader AddEvent(Guid id, EventHeader userEvent)
         {
@@ -72,6 +72,29 @@ namespace UserAPI.Infrastructure.Repositories
             var user = _users.SingleOrDefault(x => x.Id == id);
             var eventInRepo = user.UserEvents.SingleOrDefault(x => x.Id == eventId);
             if (eventInRepo != null) user.UserEvents.Remove(eventInRepo);
+        }
+        public LocationHeader GetLocation(Guid id, Guid EventId)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            return user.UserLocations.SingleOrDefault(x => x.Id == EventId);
+        }
+        public LocationHeader AddLocation(Guid id, LocationHeader userLocation)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            user.UserLocations.Add(userLocation);
+            return userLocation;
+        }
+
+        public void UpdateLocation(Guid id, LocationHeader userLocation)
+        {
+
+        }
+
+        public void DeleteLocation(Guid id, Guid locationId)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == id);
+            var locationInRepo = user.UserLocations.SingleOrDefault(x => x.Id == locationId);
+            if (locationInRepo != null) user.UserLocations.Remove(locationInRepo);
         }
     }
 }

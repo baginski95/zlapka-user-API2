@@ -15,6 +15,7 @@ namespace UserAPI.Infrastructure.Mappers
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<User, UserDtoCreate>();
                 cfg.CreateMap<EventHeader, EventHeaderDto>();
+                cfg.CreateMap<LocationHeader, LocationHeaderDto>();
             }
             ).CreateMapper();
     }

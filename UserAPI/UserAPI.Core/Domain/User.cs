@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace UserAPI.Core.Domain
 {
@@ -17,6 +16,7 @@ namespace UserAPI.Core.Domain
         public string PhotoDir { get; set; }
         public string Role { get; protected set; }
         public List<EventHeader> UserEvents { get; set; }
+        public List<LocationHeader> UserLocations { get; set; }
 
         //public IEnumerable<Preference> Preferences{ get; set;} 
 
@@ -37,6 +37,7 @@ namespace UserAPI.Core.Domain
             SecondName = SetData(secondName);
             Email = SetData(email);
             UserEvents = new List<EventHeader>();
+            UserLocations = new List<LocationHeader>();
             Role = "Regular";
             PhotoDir = "";
             Description = "";

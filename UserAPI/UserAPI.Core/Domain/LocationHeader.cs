@@ -2,19 +2,20 @@
 
 namespace UserAPI.Core.Domain
 {
-    public class EventHeader : Entity
+    public class LocationHeader : Entity
     {
         public string Name { get; set; }
 
-        public EventHeader()
+        public LocationHeader()
         {
 
         }
 
-        public EventHeader(Guid id, string name)
+        public LocationHeader(Guid id, string name)
         {
             Name = name;
             Id = id;
         }
     }
 }
+

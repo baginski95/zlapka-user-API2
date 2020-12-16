@@ -85,10 +85,36 @@ namespace UserAPI.Infrastructure.Services
             _userRepository.UpdateEvent(id, userEvent);
         }
 
-
         public void DeleteEvent(Guid id, Guid eventId)
         {
             _userRepository.DeleteEvent(id, eventId);
+        }
+
+        public LocationHeaderDto GetLocation(Guid id, Guid locationId)
+        {
+            var userLocation = _userRepository.GetLocation(id, locationId);
+            return _mapper.Map<LocationHeaderDto>(userLocation);
+        }
+        public LocationHeaderDto AddLocation(Guid id, Guid locationId, string name = "defaultName")
+        {
+
+            var userLocation = new LocationHeader(locationId, name);
+            _userRepository.AddLocation(id, userLocation);
+
+            return _mapper.Map<LocationHeaderDto>(userLocation);
+        }
+
+        public void UpdateLocation(Guid id, Guid locationId, string name = "defaultName")
+        {
+            var userLocation = _userRepository.GetLocation(id, locationId);
+            userLocation.Name = name;
+            _userRepository.UpdateLocation(id, userLocation);
+        }
+
+
+        public void DeleteLocation(Guid id, Guid locationId)
+        {
+            _userRepository.DeleteLocation(id, locationId);
         }
     }
 }

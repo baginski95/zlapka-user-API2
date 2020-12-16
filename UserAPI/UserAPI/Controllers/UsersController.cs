@@ -11,7 +11,7 @@ using UserAPI.Infrastructure.Services;
 
 namespace UserAPI.Controllers
 {
-    [Route("UserAPI/[controller]")]
+    [Route("userApi/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -23,10 +23,10 @@ namespace UserAPI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet("id")]
-        public IActionResult GetUser(Guid id)
+        [HttpGet("userId")]
+        public IActionResult GetUser(Guid userId)
         {
-            var user = _userService.Get(id);
+            var user = _userService.Get(userId);
             if(user == null)
             {
                 return NotFound();
@@ -35,10 +35,10 @@ namespace UserAPI.Controllers
             return Ok(user);
         }
 
-        [HttpGet("id/info")]
-        public IActionResult GetAllUserInfo(Guid id)
+        [HttpGet("userId/info")]
+        public IActionResult GetAllUserInfo(Guid userId)
         {
-            var user = _userService.GetAllInfo(id);
+            var user = _userService.GetAllInfo(userId);
             if (user == null)
             {
                 return NotFound();
@@ -53,73 +53,125 @@ namespace UserAPI.Controllers
             var newId = Guid.NewGuid();
             user = _userService.Create(newId, user.PhoneNumber, user.DateOfBirth, user.UserName,
                                        user.FirstName, user.SecondName, user.Email);
-            return Created($"UserAPI/users/{newId}", user);
+            return Created($"userAPI/users/{newId}", user);
         }
 
-        [HttpPut("id")]
-        public IActionResult UpdateUser(Guid id, [FromBody] UserDtoUpdate user)
+        [HttpPut("userId")]
+        public IActionResult UpdateUser(Guid userId, [FromBody] UserDtoUpdate user)
         {
-            var userCheck = _userService.Get(id);
+            var userCheck = _userService.Get(userId);
             if (userCheck == null)
             {
                 return NotFound();
             }
 
-            _userService.Update(id, user.Email, user.PhotoDir, user.Description);
+            _userService.Update(userId, user.Email, user.PhotoDir, user.Description);
             return NoContent();
         }
 
-        [HttpDelete("id")]
-        public IActionResult DeleteUser(Guid id)
+        [HttpDelete("userId")]
+        public IActionResult DeleteUser(Guid userId)
         {
-            var userCheck = _userService.Get(id);
+            var userCheck = _userService.Get(userId);
             if (userCheck == null)
             {
                 return NotFound();
             }
-            _userService.Delete(id);
+            _userService.Delete(userId);
             return NoContent();
         }
 
-        [HttpPost("id/events/add")]
-        public IActionResult AddEvent(Guid id, [FromBody] EventHeaderDto userEvent)
+        [HttpPost("userId/events/add")]
+        public IActionResult AddEvent(Guid userId, [FromBody] EventHeaderDto userEvent)
         {
-            var userCheck = _userService.Get(id);
+            var userCheck = _userService.Get(userId);
             if (userCheck == null)
             {
                 return NotFound();
             }
-            _userService.AddEvent(id, Guid.Parse(userEvent.Id), userEvent.Name);
+            _userService.AddEvent(userId, Guid.Parse(userEvent.Id), userEvent.Name);
             return Ok(userEvent);
         }
 
-        [HttpPut("id/events/update")]
-        public IActionResult UpdateEvent(Guid id, [FromBody] EventHeaderDto userEvent)
+        [HttpPut("userId/events/update")]
+        public IActionResult UpdateEvent(Guid userId, [FromBody] EventHeaderDto userEvent)
         {
             if (Guid.TryParse(userEvent.Id, out var eventId))
             {
-                var eventCheck = _userService.GetEvent(id, eventId);
+                var eventCheck = _userService.GetEvent(userId, eventId);
                 if (eventCheck == null)
                 {
                     return NotFound();
                 }
-                _userService.UpdateEvent(id, eventId, userEvent.Name);
+                _userService.UpdateEvent(userId, eventId, userEvent.Name);
                 return Ok();
             }
             return NotFound();
         }
 
-        [HttpDelete("id/events/delete")]
-        public IActionResult DeleteEvent(Guid id, [FromBody] EventHeaderDto userEvent)
+        [HttpDelete("userId/events/delete")]
+        public IActionResult DeleteEvent(Guid userId, [FromBody] EventHeaderDto userEvent)
         {
             if( Guid.TryParse(userEvent.Id, out var eventId))
             {
-                var eventCheck = _userService.GetEvent(id, eventId);
+                var eventCheck = _userService.GetEvent(userId, eventId);
                 if (eventCheck == null)
                 {
                     return NotFound();
                 }
-                _userService.DeleteEvent(id, eventId);
+                _userService.DeleteEvent(userId, eventId);
+                return Ok();
+            }
+            return NotFound();
+        }
+
+
+
+
+
+
+
+
+
+        [HttpPost("userId/locations/add")]
+        public IActionResult AddLocation(Guid userId, [FromBody] LocationHeaderDto userLocation)
+        {
+            var userCheck = _userService.Get(userId);
+            if (userCheck == null)
+            {
+                return NotFound();
+            }
+            _userService.AddLocation(userId, Guid.Parse(userLocation.Id), userLocation.Name);
+            return Ok(userLocation);
+        }
+
+        [HttpPut("userId/locations/update")]
+        public IActionResult UpdateLocation(Guid userId, [FromBody] LocationHeaderDto userLocation)
+        {
+            if (Guid.TryParse(userLocation.Id, out var locationId))
+            {
+                var eventCheck = _userService.GetLocation(userId, locationId);
+                if (eventCheck == null)
+                {
+                    return NotFound();
+                }
+                _userService.UpdateLocation(userId, locationId, userLocation.Name);
+                return Ok();
+            }
+            return NotFound();
+        }
+
+        [HttpDelete("userId/locations/delete")]
+        public IActionResult DeleteLocation(Guid userId, [FromBody] LocationHeaderDto userLocation)
+        {
+            if (Guid.TryParse(userLocation.Id, out var locationId))
+            {
+                var eventCheck = _userService.GetLocation(userId, locationId);
+                if (eventCheck == null)
+                {
+                    return NotFound();
+                }
+                _userService.DeleteLocation(userId, locationId);
                 return Ok();
             }
             return NotFound();
